@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+    <DebugType>full</DebugType>
+
+    <BuildDependsOn>
+      $(BuildDependsOn);
+      GeneratorTestResult
+    </BuildDependsOn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\UTDemos\UTDemos.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="dotnet-reportgenerator-cli" Version="4.0.15" />
+  </ItemGroup>
+
+  <Target Name="Build" DependsOnTargets="$(BuildDependsOn)" />
+
+  <Target Name="GeneratorTestResult" AfterTargets="AfterBuild">
+
+    <Exec Command="echo Build Finish" />
+    <!--<Exec Command=".\generatortestresult.cmd" />-->
+    <Exec Command="echo Report Generatored" />
+
+    <!--<Exec Command='OpenCover.Console.exe -target:&quot;dotnet.exe&quot; -targetargs:&quot;test&quot; -output:OpenCover.xml -register:user -filter:&quot;+[*]* -[*Moq]*&quot; -oldstyle' />
+    <Exec Command="dotnet reportgenerator &quot;-reports:OpenCover.xml&quot; &quot;-targetdir:coveragereport&quot;" />-->
+  </Target>
+</Project>

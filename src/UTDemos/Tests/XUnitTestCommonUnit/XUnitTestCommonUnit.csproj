@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+    <DebugType>full</DebugType>
+    <BuildDependsOn>
+      $(BuildDependsOn);
+      GeneratorTestResult
+    </BuildDependsOn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+ 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\UTDemos\UTDemos.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="dotnet-reportgenerator-cli" Version="4.0.15" />
+  </ItemGroup>
+
+  <Target Name="Build" DependsOnTargets="$(BuildDependsOn)" />
+
+  <!--<Target Name="ReBuild" DependsOnTargets="$(BuildDependsOn)" />-->
+
+  <Target Name="GeneratorTestResult" AfterTargets="AfterBuild">
+    <Exec Command="echo Build Finish" />
+    <!--<Exec Command=".\generatortestresult.cmd" />-->
+    <Exec Command="echo Report Generatored" />
+    <!--<Exec Command="OpenCover.Console.exe -target:&quot;dotnet.exe&quot; -targetargs:&quot;test&quot; -output:OpenCover.xml -register:user -filter:&quot;+[*]* -[*Moq]* -[xunit*]* &quot; -oldstyle" />
+    <Exec Command="dotnet reportgenerator &quot;-reports:OpenCover.xml&quot; &quot;-targetdir:coveragereport&quot;" />-->
+  </Target>
+
+</Project>
+
+
